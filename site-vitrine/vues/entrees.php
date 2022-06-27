@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Exo 3 - Site vitrine</title>
+        <title>Site vitrine</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,25 +9,9 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <link href="css/styles.css" type="text/css" rel="stylesheet">
+        <link href="public/css/styles.css" type="text/css" rel="stylesheet">
     </head>
     <body>
-
-        <?php
-        $adresseBdd = "localhost:8889";
-        $utilisateurBdd = "root";
-        $mdpBdd = "root";
-        $nomBdd = "restaurant";
-
-        try {
-
-            $connexion = new PDO("mysql:host=" . $adresseBdd . ";dbname=" . $nomBdd . ";charset=utf8", $utilisateurBdd, $mdpBdd);
-        }
-        catch(PDOException $erreur) {
-
-            echo "Erreur: " . $erreur->getMessage();
-        }
-        ?>
 
         <header class="rouge pr-5 pb-3 pt-3 pl-5 row align-items-center">
             <h1 class="col-3">Resto'</h1>
@@ -49,19 +33,17 @@
         <main>
             <section>
                 <?php
-                $carte = $connexion->query("SELECT * FROM carte WHERE titre = 'Nos plats'");
-
-                foreach($carte as $cartePlat) {
+                foreach($carte as $carteEntree) {
 
                     echo "
                         <div class='container p-3'>
-                        <img src='images/" . $cartePlat['image'] . "'>
+                        <img src='public/images/" . $carteEntree['image'] . "'>
                         <br>
                         <br>
                         <div class='text-center'>
-                            <h2>" . $cartePlat['titre']. "</h2>
+                            <h2>" . $carteEntree['titre']. "</h2>
                             <br>
-                            <p>" . $cartePlat['description'] . "</p>
+                            <p>" . $carteEntree['description'] . "</p>
                         </div>
                     </div>";
                 }
@@ -71,18 +53,16 @@
             <section>
                 
                 <div class="container">
-                    <?php
-                    $plats = $connexion->query("SELECT * FROM plats");
-                    
+                    <?php                    
                     echo "<ul>";
-                    foreach($plats as $plat) {
+                    foreach($entrees as $entree) {
 
                         echo "<li class='mb-3 p-3 border-bottom border-dark'>
                             <div class='row justify-content-between align-items-center'>
-                                <h3>" . $plat['titre'] . "</h3>
-                                <p>" . $plat['prix'] . "€</p>
+                                <h3>" . $entree['titre'] . "</h3>
+                                <p>" . $entree['prix'] . "€</p>
                             </div>
-                            <p>" . $plat['description'] . "</p>
+                            <p>" . $entree['description'] . "</p>
                         </li>";
                     }
                     echo "</ul>";
